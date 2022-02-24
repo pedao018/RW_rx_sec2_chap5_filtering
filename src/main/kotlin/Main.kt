@@ -56,6 +56,7 @@ fun main(args: Array<String>) {
         publishSubject.onNext(8)
         publishSubject.onComplete()
 
+
     }
 
     exampleOf("skip") {
