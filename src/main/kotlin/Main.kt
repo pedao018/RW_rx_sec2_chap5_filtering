@@ -45,12 +45,16 @@ fun main(args: Array<String>) {
 
         println("Publish Subject:")
         val publishSubject = PublishSubject.create<Int>()
-        publishSubject.filter { number -> number > 5 }
-            .subscribe { print(it) }
+        publishSubject.filter { number -> number > 2 }
+            .toList()
+            .subscribeBy(onSuccess = { print(it) })
+
         publishSubject.onNext(1)
         publishSubject.onNext(5)
         publishSubject.onNext(6)
         publishSubject.onNext(7)
+        publishSubject.onNext(8)
+        publishSubject.onComplete()
 
     }
 
