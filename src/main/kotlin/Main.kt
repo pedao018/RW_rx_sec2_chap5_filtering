@@ -47,10 +47,16 @@ fun main(args: Array<String>) {
         val publishSubject = PublishSubject.create<Int>()
         publishSubject.filter { number -> number > 5 }
             .subscribe { print(it) }
+        publishSubject.filter { number -> number > 2 }
+            .toList()
+            .subscribeBy(onSuccess = { print(it) })
+
         publishSubject.onNext(1)
         publishSubject.onNext(5)
         publishSubject.onNext(6)
         publishSubject.onNext(7)
+        publishSubject.onNext(8)
+        publishSubject.onComplete()
 
     }
 
@@ -96,7 +102,8 @@ fun main(args: Array<String>) {
         subscriptions.add(
             // 1
             Observable.fromIterable(
-                listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1))
+                listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1)
+            )
                 // 2
                 .takeWhile { number ->
                     number < 5
@@ -143,7 +150,8 @@ fun main(args: Array<String>) {
         subscriptions.add(
             // 1
             Observable.just(
-                "ABC", "BCD", "CDE", "FGH", "IJK", "JKL", "LMN")
+                "ABC", "BCD", "CDE", "FGH", "IJK", "JKL", "LMN"
+            )
                 // 2
                 .distinctUntilChanged { first, second ->
                     // 3
